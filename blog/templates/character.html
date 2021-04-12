@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand" href="{% url 'blog-home' %}">Home</a>
+        <a class="navbar-brand" href="{% url 'breaking' %}">Breaking Bad</a>
+        <a class="navbar-brand" href="{% url 'saul' %}" >Better Call Saul</a>
+        <form class="form-inline" id="Search" method="POST" action="/search/" >
+            {% csrf_token %}
+          <input class="form-control mr-sm-2" type="search" id="SearchInput" placeholder="Search" aria-label="Search" >
+          <button class="btn btn-outline-light" type="submit">Search</button>
+        </form>
+    </nav>
+
+<div class=container>
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src={{picture}} class="card-img" >
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">Character</h5>
+          <p class="card-text">Name: {{name}}</p>
+          <p class="card-text">Nickname: {{nickname}}</p>
+          <p class="card-text"> Ocuppation:
+            {% for a in occupation%}
+                {{a}}
+            {% endfor%}
+          </p>
+          <p class="card-text">Status: {{ status}}</p>
+          <p class="card-text">Actor: {{ portrayed}}</p>
+          <p class="card-text"><small class="text-muted">Temporadas de Breaking Bad
+            {% for a in appearance%}
+            <a href="{% url 'home-season-bad' pk=a%}">{{a}}  </a>
+            {% endfor%}  
+          </small></p>
+          <p class="card-text"><small class="text-muted">Temporadas de Better Call Saul
+            {% for a in temp_saul%}
+            <a href="{% url 'home-season' pk=a%}">{{a}}  </a>
+            {% endfor%}  
+          </small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class=container>
+    <h2>Quotes</h2>
+    <div class="card" style="width: 40rem;">
+        <ul class="list-group list-group-flush">
+          {% for a in quotes%}
+          <li class="list-group-item">{{a}}</li>
+          {% endfor%}
+        </ul>
+      </div>
+</div>
+</body>
+</html>
